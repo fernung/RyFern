@@ -2,7 +2,7 @@
 
 namespace RyFern.Graphics.Two
 {
-    public class PixelBuffer
+    public sealed class PixelBuffer
     {
         private readonly int _width;
         private readonly int _height;

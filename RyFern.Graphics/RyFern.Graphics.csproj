@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Shaders\" />
-    <Folder Include="Three\" />
   </ItemGroup>
 
   <ItemGroup>

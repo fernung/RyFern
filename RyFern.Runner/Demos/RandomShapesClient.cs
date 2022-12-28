@@ -33,14 +33,12 @@ namespace RyFern.Runner.Demos
             
             SetMode(ShapeMode.Blank);
         }
-
         protected override void Update(Time time)
         {
             base.Update(time);
             CheckInput();
             UpdateMode();
         }
-
         protected override void Draw(Time time)
         {
             base.Draw(time);
@@ -165,7 +163,6 @@ namespace RyFern.Runner.Demos
             GetRandomLine();
             _randomRadius = _random.Next(0, Width / 4);
         }
-        
 
         protected enum ShapeMode
         {

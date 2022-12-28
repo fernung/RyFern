@@ -8,7 +8,7 @@ using Buffer = System.Buffer;
 
 namespace RyFern.Graphics
 {
-    public class PixelGL
+    public sealed class PixelGL
     {
         private int _width, _height;
         private Pixel[] _buffer;
@@ -292,5 +292,19 @@ namespace RyFern.Graphics
         private int SampleIndex(float x, float y) =>
             (int)(x * _width) + ((int)(y * _height) * _width);
         #endregion
+
+        public static PixelBuffer FromFile(string path)
+        {
+            using var bitmap = System.Drawing.Image.FromFile(path) as System.Drawing.Bitmap;
+            var width = bitmap.Width;
+            var height = bitmap.Height;
+            var pixels = new uint[width * height];
+            var pixelBytes = new byte[(width * height) << 2];
+            var data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, width, height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Marshal.Copy(data.Scan0, pixelBytes, 0, pixelBytes.Length);
+            Buffer.BlockCopy(pixelBytes, 0, pixels, 0, pixels.Length * sizeof(uint));
+            bitmap.UnlockBits(data);
+            return new(width, height, pixels);
+        }
     }
 }
